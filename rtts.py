@@ -114,5 +114,5 @@ if __name__ == "__main__":
     #run_ping(top100, 10, "rtt_a_raw.json", "rtt_a_agg.json")
     #run_ping(["google.com", "todayhumor.co.kr", "zanvarsity.ac.tz", "taobao.com"], 500, "rtt_b_raw.json", "rtt_b_agg.json")
     #graphs for a and b
-    #plot_median_rtt_cdf("rtt_a_agg.json", "part1-1.pdf")
-    plot_ping_cdf("rtt_b_raw.json", "part1-2.pdf")
+    plot_median_rtt_cdf("rtt_a_agg.json", "part1-1.pdf")
+    #plot_ping_cdf("rtt_b_raw.json", "part1-2.pdf")
