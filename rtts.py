@@ -17,9 +17,9 @@ def run_ping(hostnames, num_packets, raw_ping_output_filename, aggregated_ping_o
         except subprocess.CalledProcessError as e:
             rawOutputs[hostname] = [-1]*num_packets
             agged = {}
-            agged["drop_rate"] = 100
-            agged["median_rtt"] = -1
-            agged["max_rtt"] = -1
+            agged["drop_rate"] = 100.0
+            agged["median_rtt"] = -1.0
+            agged["max_rtt"] = -1.0
             aggOutputs[hostname] = agged
             continue
         linesplit = ls_output.split("\n")
@@ -30,14 +30,14 @@ def run_ping(hostnames, num_packets, raw_ping_output_filename, aggregated_ping_o
             if "ms" in line and "bytes" in line and "PING" not in line.split():
                 line = line.split()
                 while line[len(line) - 4].split("=")[1] != str(seqnum):
-                    rttList.append(-1)
+                    rttList.append(-1.0)
                     seqnum += 1
                 rttList.append(float(line[len(line) - 2].split("=")[1]))
                 seqnum += 1
                 
             if not line:
                 while seqnum != num_packets+1:
-                    rttList.append(-1)
+                    rttList.append(-1.0)
                     seqnum += 1
         rawOutputs[hostname] = rttList
         aggOutputs[hostname] = getAggs(rttList)
@@ -58,8 +58,8 @@ def getAggs(rawList):
     
     filtered = [float(x) for x in rawList if x != -1]
     if not filtered:
-        aggDict["median_rtt"] = -1
-        aggDict["max_rtt"] = -1
+        aggDict["median_rtt"] = -1.0
+        aggDict["max_rtt"] = -1.0
     else:
         aggDict["median_rtt"] = np.median(np.array(filtered))
         aggDict["max_rtt"] = max(filtered)
